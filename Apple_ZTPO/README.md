@@ -28,4 +28,4 @@
 6.	The Entire ZTPO Process communicates with the GUI to give live updates. And the progress will be shown as below.
 	![Alt text](/Apple_ZTPO/img/GUILiveProgress.jpg "GUI Live Progress")
  
-
+( #### NOTE: The images represent the GUI that will be built. Once the GUI is built, it will be replaced by the actual snapshots).
