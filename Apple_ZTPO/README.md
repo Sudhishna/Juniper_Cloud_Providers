@@ -11,9 +11,11 @@
 	The below topology is generated
 
 	![Alt text](/img/InitialTopology.jpg "Initial Topology") 
+
 3.	In the topology that appears, the user will enter the Serial Number of the Spines and Leaves by clicking on the boxes.
 
 	![Alt text](/img/SerialNumberAssigned.jpg "Serial Number Assigned")
+
 4.	The User can now Boot/ ON the devices.
 5.	#### ZTPO Starts:
 	- DHCP Server assigns the IP address
