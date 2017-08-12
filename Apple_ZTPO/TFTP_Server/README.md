@@ -1,4 +1,4 @@
-# TFTP Server:
+## TFTP Server:
 
 - sudo apt-get install xinetd tftpd tftp
 - Configure /etc/xinetd.d/tftp

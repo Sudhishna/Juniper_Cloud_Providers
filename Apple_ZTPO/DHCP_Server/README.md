@@ -1,4 +1,4 @@
-##DHCP Server:
+## DHCP Server:
 
 - sudo apt-get install isc-dhcp-server
 
