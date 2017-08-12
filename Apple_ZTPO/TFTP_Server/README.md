@@ -36,6 +36,7 @@ iface eth0 inet static
     gateway 192.168.77.250
 ```
 
+```
 - ssendhil@ubuntu:~$ ls /tftpboot/
 jinstall-host-qfx-5-15.1R6.7-domestic-signed.tgz  network.conf
-
+```
