@@ -27,6 +27,6 @@
 	  - Upgrade to the new IMG and push CONFIG
 6.	The Entire ZTPO Process communicates with the GUI to give live updates. And the GUI will transition as shown below.
 
-	![Alt text](/Apple_ZTPO/img/GUILiveProgres.jpg "GUI Live Progress")
+	![Alt text](/Apple_ZTPO/img/GUILiveTransition.jpg "GUI Live Transition")
  
 #### NOTE: The images represent the GUI that will be built. Once the GUI is built, it will be replaced by the actual snapshots.
