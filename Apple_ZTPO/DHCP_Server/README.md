@@ -3,7 +3,7 @@
 - sudo apt-get install isc-dhcp-server
 
 - sudo vi /etc/network/interfaces
-'''
+```
 auto lo
 iface lo inet loopback
 
@@ -14,14 +14,13 @@ iface eth0 inet static
     network 192.168.77.0
     broadcast 192.168.77.255
     gateway 192.168.77.250
-'''
+```
 
 - sudo vi /etc/default/isc-dhcp-server
-'''
+```
 INTERFACES="eth0"
-'''
+```
 
-- sudo vi /etc/dhcp/dhcpd.conf
-copy content from the attached file
+- Configure /etc/dhcp/dhcpd.conf
 
 - sudo service isc-dhcp-server restart

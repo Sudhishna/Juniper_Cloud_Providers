@@ -1,8 +1,8 @@
-#TFTP Server:
+# TFTP Server:
 
 - sudo apt-get install xinetd tftpd tftp
 - Configure /etc/xinetd.d/tftp
-'''
+```
 service tftp
 {
 protocol        = udp
@@ -14,7 +14,7 @@ server          = /usr/sbin/in.tftpd
 server_args     = /tftpboot
 disable         = no
 }
-'''
+```
 
 - sudo mkdir /tftpboot
 - sudo chmod -R 777 /tftpboot
@@ -23,7 +23,7 @@ disable         = no
 - sudo /etc/init.d/xinetd start
 
 - Configure /etc/network/interfaces
-'''
+```
 auto lo
 iface lo inet loopback
 
@@ -34,7 +34,7 @@ iface eth0 inet static
     network 192.168.77.0
     broadcast 192.168.77.255
     gateway 192.168.77.250
-'''
+```
 
 - ssendhil@ubuntu:~$ ls /tftpboot/
 jinstall-host-qfx-5-15.1R6.7-domestic-signed.tgz  network.conf
