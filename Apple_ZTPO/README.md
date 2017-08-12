@@ -29,4 +29,4 @@
 
 	![Alt text](/Apple_ZTPO/img/GUILiveTransition.jpg "GUI Live Transition")
  
-#### NOTE: The images represent the GUI that will be built. Once the GUI is built, it will be replaced by the actual snapshots.
+#### NOTE: The images represent the GUI that will be built. Once we build the GUI, it will be replaced by the actual snapshots.
