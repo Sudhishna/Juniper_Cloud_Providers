@@ -13,6 +13,7 @@ wm = pyinotify.WatchManager()  # Watch Manager
 mask = pyinotify.IN_MODIFY
 
 known_macs = ["38:c9:86:f1:95:22"]
+
 # Creating an ACTION to the EVENT of new device booting up
 class EventHandler(pyinotify.ProcessEvent):
 
