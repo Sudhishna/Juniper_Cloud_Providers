@@ -54,13 +54,23 @@ class EventHandler(pyinotify.ProcessEvent):
 		    print "Image File Name Fetched: " + filename + "\n"
 
 	            # Upgrade the Device to the image Specified and load the new config
-		    #if filename:
+		    if filename:
 			# Call PyEz to install that
-			#dev = helpers.junos_auto_install(str(sample["ip"]), "Junos/" + filename, dev)
+			dev = helpers.junos_auto_install(str(sample["ip"]), "Junos/" + filename, dev)
 
 		    # Push the new CONFIG Required
-		    con = Config(dev)
-		    print con
+	            print("\n\nPushing down the device specific configuration file now ")
+
+		    on_box_model = "EX2200-24P-4G"
+		    on_box_hostname = "EX2200-Spine"
+		    on_box_version = "12.3R6.6"
+
+		    # Build the config_vars from the database parameters 
+	            #helpers.build_config(on_box_model, on_box_hostname, on_box_version)
+
+		    config = Config(dev)
+		    config.load(template_path=conf_file, template_vars=config_vars, merge=True)
+		    config.commit()
 
 		    # Mark the host as known
 		    known_macs.append(mac)

@@ -177,3 +177,29 @@ class Helpers:
             self.print_base_info(dev)
             return dev
 
+    def config_composer(self, model, hostname, junos_on_box_version):
+        """
+         Using Yaml and Jinja2 generate dynamic templates
+        """
+        if "QFX" in model:
+            template_filename = "QFX_template.j2"
+            network_parameter_filename = "QFX_networkParameters.yaml"
+        elif "EX" in model:
+            template_filename = "EX_template.j2"
+            network_parameter_filename = "EX_networkParameters.yaml"
+
+        complete_path = os.path.join(os.getcwd(), 'Config')
+        ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(complete_path))
+        template = ENV.get_template(template_filename)
+
+        with open(complete_path + "/" + network_parameter_filename) as yamlfile:
+            dict = yaml.load(yamlfile)  # yaml file is loaded as a dictionary with key value pairs
+        addition = {"hostname": hostname, "version": junos_on_box_version}
+        dict.update(addition)
+
+        content = template.render(dict)
+
+        target = open("Config_History/" + hostname + ".set", 'w')
+        target.write(content)
+        target.close()
+
