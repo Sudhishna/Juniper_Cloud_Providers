@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title> Apple Automation </title>
+		{% load static %}
+                <link rel="stylesheet" type='text/css' href="{% static 'topology/style.css' %}">
+	</head>
+	<body>
+		<div> 
+			<ul>
+				{% load static %}
+				<li><img src="{% static 'images/Juniper-Software.png' %}" width="auto" height="30"><span style="display:inline-block;padding-left:0"></li>                          
+                                <li><img src="{% static 'images/juniper_rev_blue_rgb.png' %}" height="30" width="auto"><span style="display:inline-block"><li>
+			</ul>
+		</div>
+		<div>
+			<center> <h3> Enter Setup Details</h3>
+			<form action="netdiag/" method="POST">{% csrf_token %}
+			<table>
+			<tr><td>Number of Spines</td>
+		 		<td><select name="spine">
+					<option value=" ">Select..</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select></td></tr>
+                        <tr><td> Number of Leaves</td> 
+                                <td><select name="leaf">   
+	                               	<option value=" ">Select..</option>     
+        	                        <option value="1">1</option>
+                	                <option value="2">2</option>
+                        	        <option value="3">3</option>
+                                	<option value="4">4</option>
+                                	<option value="5">5</option>
+                                </select></td></tr><br />
+			<tr><td colspan="2"><center><input type="submit" value="submit"></center></td></tr>
+			</form>
+                        </center>
+                </div>
+	</body>
+</html>

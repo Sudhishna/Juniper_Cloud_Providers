@@ -1,0 +1,28 @@
+{% extends "topology/header.html" %}
+	{% block content}
+                <h1>Leaf and Spine</h1>
+                <p><table>
+                        {% load static %}
+                        <tr>
+                        {% with ''|center:spine as range %}
+                        {% for _ in range %}
+                                <td colspan={{factor}} ><center><img src="{% static 'topology/images/device.jpg' %}" width="auto" height="30"><span style="display:inline-block;padding-left:0"></center></td>
+                        {% endfor %}
+                        {% endwith %}
+                        </tr>
+                        {% with ''|center:20 as range %}
+                        {% for _ in range %}
+                        <tr>
+                        </tr>
+                        {% endfor %}
+                        {% endwith %}
+                        <tr>
+                        {% with ''|center:leaf as range %}
+                        {% for _ in range %}
+                                <td> <img src="{% static 'topology/images/device.jpg' %}" width="auto" height="30"><span style="display:inline-block;padding-left:0"> </td>
+                        {% endfor %}
+                        {% endwith %}
+                        </tr>
+                </table></p>
+        {% endblock %}
+

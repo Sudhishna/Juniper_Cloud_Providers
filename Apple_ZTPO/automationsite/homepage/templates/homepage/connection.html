@@ -1,0 +1,87 @@
+{% extends "homepage/header.html" %} 
+	{% block javas %}
+		<script src="https://raw.githubusercontent.com/anvaka/VivaGraphJS/master/dist/vivagraph.js"></script> 
+                <style type="text/css" media="screen">
+                        svg { width: 100%; height: 100%}
+                </style>
+
+	{% endblock %}
+	{% block content%}
+		<div class="div-pad">
+                        <ul class="nav">
+                                <li><a href="/test2.html" class="active">Network Diagram</a></li>
+                                <li><a href="/test3.html">BGP Neighbors</a><li>
+				<li><a href="/">Firewall Details</a></li>
+				<li><a href="/">Graphs</a></li>
+				<li><a href="/">Upgrade Junos Image</a></li>
+                        </ul>
+                </div>
+		<div>Graph
+		</div>
+		<script type='text/javascript'>
+				var spine={{spine}};
+				var leaf={{leaf}};
+				var up='up';
+				var down='down';
+				var name;
+				var spinestate={{spinestate | safe}};
+				var leafstate={{leafstate | safe}};
+				var links={{links | safe}};
+					
+				
+
+                                var g= Viva.Graph.graph();
+                                for(var i=1 ; i <= spine; i++){
+					name='Spine'+String(i);
+					if (spinestate[i-1]=='up'){
+						g.addNode(name,  {url: 'http://localhost:8000/static/homepage/images/upimage.png', label: name});
+					}else{
+						g.addNode(name,  {url: 'http://localhost:8000/static/homepage/images/device.jpg', label: name});
+					}
+                                }
+				
+
+				for(var i=1 ; i <= leaf; i++){
+                                        name='Leaf'+String(i);
+                                        if (leafstate[i-1]=='up'){
+                                                g.addNode(name,  {url: 'http://localhost:8000/static/homepage/images/upimage.png', label: name});
+                                        }else{
+                                                g.addNode(name,  {url: 'http://localhost:8000/static/homepage/images/device.jpg', label: name});
+                                        }
+                                }
+				
+				nums=links.length;
+				for(var i=0; i < nums; i=i+2){
+					g.addLink(links[i], links[i+1]);
+				}
+	
+				
+                                var gph = Viva.Graph.View.svgGraphics();
+                                gph.node(function(node) {
+
+					var nodeatt=Viva.Graph.svg('g'),
+			
+					txt=Viva.Graph.svg('text')
+					.text(node.data.label),
+				
+					img= Viva.Graph.svg('image')
+                                        .attr('width', 200)
+                                        .attr('height', 50)
+                                        .link(node.data.url);
+				
+					nodeatt.append(txt);	
+					nodeatt.append(img);
+					return nodeatt ;
+                                })
+
+           	                .placeNode(function(nodeUI, pos){
+   		                       nodeUI.attr('transform', 'translate('+ (pos.x -100)+ ','+( pos.y - 25)+')'); 
+                               	});
+
+				
+                
+                                var r = Viva.Graph.View.renderer(g, {graphics: gph});
+                                r.run();
+
+                </script>
+	{% endblock %}

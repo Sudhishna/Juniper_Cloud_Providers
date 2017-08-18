@@ -1,0 +1,43 @@
+{% extends "homepage/header.html" %}
+	{% block content %} 
+		<h1>Leaf and Spine</h1>
+		<div><form  action="awesome/" method="POST">{% csrf_token %}
+		<table>
+			{% load static %}
+			<tr>
+			{% with ''|center:spine as range %}
+			{% for _ in range %}
+				<td colspan={{factor}}><center>Spine{{forloop.counter}}<br /><img src="{% static 'homepage/images/device.jpg' %}" width="auto" height="20"><span style="display:inline-block;padding-left:0"></center></td>
+			{% endfor %}
+			{% endwith %}
+			</tr>
+			<tr>
+			{% with ''|center:spine as range %}
+                        {% for _ in range %}
+                                <td colspan={{factor}}><center><input type="text" name="Spine{{forloop.counter}}"></center></td>
+                        {% endfor %}
+                        {% endwith %}
+			</tr>
+			{% with ''|center:20 as range %}
+                        {% for _ in range %}
+			<tr>
+			</tr>
+			{% endfor %}
+                        {% endwith %}
+			<tr>
+			{% with ''|center:leaf as range %}
+                        {% for _ in range %}
+                                <td><center>Leaf{{forloop.counter}}<br /> <img src="{% static 'homepage/images/device.jpg' %}" width="auto" height="20"><span style="display:inline-block;padding-left:0"></center> </td>
+                        {% endfor %}
+			{% endwith %}
+			</tr>
+			<tr>
+                        {% with ''|center:leaf as range %}
+                        {% for _ in range %}
+                                <td><center><input type="text" name="Leaf{{forloop.counter}}"></center></td>
+                        {% endfor %}
+                        {% endwith %}
+                        </tr>
+			<tr><td colspan={{leaf}}><center><input type="submit" value="submit"></center></td></tr>
+		</table></div>
+	{% endblock %}
