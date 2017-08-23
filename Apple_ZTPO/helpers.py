@@ -13,6 +13,7 @@ from pprint import pprint
 from jnpr.junos import Device
 from jnpr.junos import exception
 from jnpr.junos.utils.sw import SW
+from jnpr.junos.utils.config import Config
 
 class Helpers:
     """
@@ -43,32 +44,23 @@ class Helpers:
 
         return host_mac
 
-    def compare_mac(self, sample_mac, host_mac):
-        """
-        For SRX, bootp ge-0/0/0 => ge-0/0/0.mac = chassis.mac
-        For  EX, bootp ge-0/0/0 => vlan.mac = chassis.mac + 1
-        """
-        sample_mac_int = int(sample_mac.replace(':', ''), 16)
-        host_mac_int = int(target_mac.replace(':', ''), 16)
-        if sample_mac_int == host_mac_int:
-            return True
-        else:
-            return False
-
     def fetch_customer_requirements(self,sno):
 	"""
 	Fetch the customer requirements(serialnumber,image,config) from the MySQL DataBase
 	"""
         db = MySQLdb.connect(host="localhost",user="root",passwd="salt123",db="AppleDB")
-        cursor = db.cursor()
-	query = 'select * from devices where sno="' + sno + '"'
-        cursor.execute(query) 
-        for row in cursor.fetchall():
-            sno_db = row[0]
-            version_db = row[1]
-            config_db = row[2]
+        cursor = db.cursor (MySQLdb.cursors.DictCursor)
+        query = 'select * from devices where sno="' + sno + '"'
+        cursor.execute(query)
+        result = cursor.fetchall()
+        for row in result:
+            for key,value in row.iteritems():
+                if key == "sno":
+                    sno_db = value
+            	if key == "version":
+		    version_db = value
 	
-	    return sno_db,version_db,config_db 
+	    return sno_db,version_db 
 
     def device_connect(self, host_ip):
 	"""
@@ -165,7 +157,7 @@ class Helpers:
         finally:
             print("Please wait for the box to wake-up!")
             time.sleep(120)
-            dev = self.device_conn(host_ip)
+            dev = self.device_connect(host_ip)
             feeds = dev.probe(10)
             while not feeds:
                 feeds = dev.probe(20)
@@ -177,29 +169,57 @@ class Helpers:
             self.print_base_info(dev)
             return dev
 
-    def config_composer(self, model, hostname, junos_on_box_version):
+    def load_config(self, model, sno, device):
         """
-         Using Yaml and Jinja2 generate dynamic templates
+        Using Yaml and Jinja2 generate dynamic templates
         """
+        dict = {}
+        conn = MySQLdb.connect(host="localhost",user="root",passwd="salt123",db="AppleDB")
+        cursor = conn.cursor (MySQLdb.cursors.DictCursor)
+        query = 'select * from devices where sno="' + sno + '"'
+        cursor.execute(query)
+        result = cursor.fetchall()
+        for row in result:
+            for key,value in row.iteritems():
+		if key == "interfaces":
+		    ints_list = []
+		    ints = value.split(",") 
+		    for int in ints:
+			int = int.replace("'", "")
+			int = int.replace(" ", "")
+			phy_ints = {"physical_interface": int}
+			ints_list.append(phy_ints)
+		    dict.update({key: ints_list})
+		else:
+                    dict.update({key: value})
+	print dict
+
         if "QFX" in model:
-            template_filename = "QFX_template.j2"
-            network_parameter_filename = "QFX_networkParameters.yaml"
+            template_filename = "QFX_template.conf"
         elif "EX" in model:
-            template_filename = "EX_template.j2"
-            network_parameter_filename = "EX_networkParameters.yaml"
-
+            template_filename = "EX_template.conf"
         complete_path = os.path.join(os.getcwd(), 'Config')
-        ENV = jinja2.Environment(loader=jinja2.FileSystemLoader(complete_path))
-        template = ENV.get_template(template_filename)
+	template = complete_path + "/" + template_filename
 
-        with open(complete_path + "/" + network_parameter_filename) as yamlfile:
-            dict = yaml.load(yamlfile)  # yaml file is loaded as a dictionary with key value pairs
-        addition = {"hostname": hostname, "version": junos_on_box_version}
-        dict.update(addition)
+        config = Config(device)
+        config.load(template_path=template, template_vars=dict, overwrite=True)
+        config.commit()
 
-        content = template.render(dict)
+        return dict
 
-        target = open("Config_History/" + hostname + ".set", 'w')
-        target.write(content)
-        target.close()
+    def ipRange(self, start_ip, end_ip):
+	start = list(map(int, start_ip.split(".")))
+	end = list(map(int, end_ip.split(".")))
+	temp = start
+	ip_range = []
 
+	ip_range.append(start_ip)
+	while temp != end:
+	    start[3] += 1
+	    for i in (3, 2, 1):
+	        if temp[i] == 256:
+	            temp[i] = 0
+	            temp[i-1] += 1
+	    ip_range.append(".".join(map(str, temp)))
+
+	return ip_range
