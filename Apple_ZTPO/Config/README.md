@@ -1,7 +1,6 @@
 ### AUTO GENERATED CONFIG SAMPLE IS AS BELOW
 
 #### DEVICE 1
-'''
 interfaces {
 
     ge-0/0/12 {
@@ -80,8 +79,6 @@ policy-options {
         }
     }
 }
-'''
-'''
 Locking the configuration
 Loading configuration changes
 Committing the configuration
