@@ -214,7 +214,7 @@ print hosts_dict
 '''
 CONFIG TEMPLATE
 '''
-template_filename = "EX_template2.conf"
+template_filename = "QFX_template.conf"
 complete_path = os.path.join(os.getcwd(), 'Config')
 template_file = complete_path + "/" + template_filename
 

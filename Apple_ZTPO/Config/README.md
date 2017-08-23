@@ -1,4 +1,6 @@
-DEVICE 1:
+###AUTO GENERATED CONFIG SAMPLE IS AS BELOW
+
+####DEVICE 1:
 '''
 interfaces {
 
@@ -84,7 +86,7 @@ Locking the configuration
 Loading configuration changes
 Committing the configuration
 '''
-DEVICE 2:
+####DEVICE 2:
 '''
 interfaces {
 
@@ -170,7 +172,7 @@ Locking the configuration
 Loading configuration changes
 Committing the configuration
 '''
-DEVICE 3:
+####DEVICE 3:
 '''
 interfaces {
 
@@ -241,6 +243,7 @@ Locking the configuration
 Loading configuration changes
 Committing the configuration
 '''
+####DEVICE 4
 '''
 interfaces {
 
