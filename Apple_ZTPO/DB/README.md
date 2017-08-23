@@ -1,5 +1,5 @@
 ```
-   | hostname  | version  | mac               | rack | bgp_router_id | bgpasn | root_password                      | interfaces                                                     | management_ip  | user  | user_password                      |
+| hostname  | version  | mac               | rack | bgp_router_id | bgpasn | root_password                      | interfaces                                                     | management_ip  | user  | user_password                      |
 +-------+-----------+----------+-------------------+------+---------------+--------+------------------------------------+----------------------------------------------------------------+----------------+-------+------------------------------------+
 | P3744 | QFX5100-1 | 15.1R6.7 | 78:fe:3d:5b:c1:0e | NULL | 10.0.0.1      | 111    | $1$kuEKtOY3$BRJ3vJZ7QXp9iltyQUqLb/ | 'ge-0/0/8', 'ge-0/0/10', 'ge-0/0/12'                           | 10.86.2.140/24 | admin | $1$kuEKtOY3$BRJ3vJZ7QXp9iltyQUqLb/ |
 | P4039 | QFX5100-2 | 15.1R6.7 | 78:fe:3d:5a:b8:fe | NULL | 10.0.0.2      | 112    | $1$kuEKtOY3$BRJ3vJZ7QXp9iltyQUqLb/ | 'ge-0/0/8', 'ge-0/0/10', 'ge-0/0/12'                           | 10.86.2.141/24 | admin | $1$kuEKtOY3$BRJ3vJZ7QXp9iltyQUqLb/ |
